@@ -15,6 +15,8 @@ OG_BASE=https://istand-deck.vercel.app python3 build.py
 git commit -am "Update deck" && git push
 ```
 
-Vercel deploys every push to `main`. The project's root directory is `dist`, with no build step.
+Live at **https://istand-deck.vercel.app** (Vercel project `istand`).
+
+For now, Vercel's GitHub app isn't installed on this account, so pushes don't deploy on their own. Deploys go through the Vercel connector instead: a small page on Vercel loads `dist/` from a pinned commit through jsDelivr. Once the app is installed, link the repo (root directory `dist`, no build step) and every push to `main` deploys.
 
 Keys: arrow keys, click, or swipe to move between slides · `F` for fullscreen · `#13` deep-links to the 3D viewer.
