@@ -1,0 +1,5 @@
+artifact/
+*.zip
+.DS_Store
+__pycache__/
+.vercel

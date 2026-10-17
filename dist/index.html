@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="iStand and iStand Pro: a two-tier standing desk that turns any table into a correct workstation and folds like a book. Concept deck.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#000000">
+<meta property="og:type" content="website">
+<meta property="og:title" content="iStand Concept Deck">
+<meta property="og:description" content="iStand and iStand Pro: a two-tier standing desk that turns any table into a correct workstation and folds like a book. Concept deck.">
+<meta property="og:image" content="https://istand-deck.vercel.app/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23000'/%3E%3Crect x='17' y='18' width='30' height='4' rx='2' fill='%23d9dadc'/%3E%3Crect x='13' y='34' width='38' height='4' rx='2' fill='%23d9dadc'/%3E%3Crect x='20' y='18' width='3' height='30' fill='%23d9dadc'/%3E%3Crect x='41' y='18' width='3' height='30' fill='%23d9dadc'/%3E%3Crect x='40' y='26' width='5' height='5' rx='1' fill='%23ff5a1f'/%3E%3C/svg%3E">
+<link rel="preload" as="image" href="img/a2_istand_black.webp" fetchpriority="high">
+<title>iStand Concept Deck</title>
+<style>
+/* Layout: a keynote stage. Landscape = a 16:9 frame scaled to the viewport (1u = 1/100 of the frame width); portrait = full-screen reflow (1u = 1vw). */
+:root{
+  --black:#000; --white:#fff; --paper:#f5f5f7; --ink:#1d1d1f; --ink-2:#6e6e73; --ink-3:#86868b; --fog:#a1a1a6; --line:#d2d2d7; --orange:#ff5a1f;
+  --f:-apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --u:min(1vw, 1.7778vh);
+  --t-xl:10; --t-l:4.6; --t-m:3.4; --t-sub:1.35; --t-note:.82; --t-pt:2.3; --t-stat:3.8; --t-cap:1.05; --t-eye:1.1;
+  color-scheme:light;
+}
+@supports (height:1dvh){ :root{ --u:min(1vw, 1.7778dvh) } }
+*{box-sizing:border-box}
+html,body{margin:0; height:100%; overflow:hidden; background:#000; -webkit-text-size-adjust:100%}
+body{font-family:var(--f); color:var(--ink); -webkit-font-smoothing:antialiased; letter-spacing:-.01em}
+img{display:block; max-width:100%}
+h1,h2,h3,p{margin:0}
+#deck{position:fixed; inset:0; overflow:hidden; background:var(--bg, #000); transition:background-color .45s ease}
+.slide{position:absolute; inset:0; display:grid; place-items:center; opacity:0; visibility:hidden; transition:opacity .45s ease, visibility 0s linear .45s; background:var(--sbg)}
+.slide.on{opacity:1; visibility:visible; transition:opacity .45s ease, visibility 0s}
+.slide.dark{--sbg:#000; color:#f5f5f7} .slide.light{--sbg:#fff} .slide.paper{--sbg:var(--paper)}
+.frame{position:relative; width:calc(var(--u)*100); height:calc(var(--u)*56.25); overflow:hidden}
+.pad{position:absolute; inset:0; padding:calc(var(--u)*4) calc(var(--u)*5) calc(var(--u)*3.5); display:flex; flex-direction:column; align-items:center; text-align:center}
+.pad.mid{justify-content:center}
+.sz{font-size:calc(var(--u)*var(--s))}
+.h-xl{--s:var(--t-xl); font-weight:600; letter-spacing:-.045em; line-height:1}
+.h-l{--s:var(--t-l); font-weight:600; letter-spacing:-.035em; line-height:1.05; text-wrap:balance}
+.h-m{--s:var(--t-m); font-weight:600; letter-spacing:-.03em; line-height:1.08; text-wrap:balance}
+.sub{--s:var(--t-sub); line-height:1.42; color:var(--ink-2); font-weight:500; max-width:44ch; text-wrap:balance; margin-top:calc(var(--u)*1.1)}
+.dark .sub{color:var(--fog)}
+.eyebrow{--s:var(--t-eye); font-weight:600; color:var(--orange); letter-spacing:0; margin-bottom:calc(var(--u)*.7)}
+.note{--s:var(--t-note); color:var(--ink-3); letter-spacing:0}
+.dark .note{color:#6e6e73}
+.m{width:calc(var(--u)*var(--w)); height:calc(var(--u)*var(--h)); border-radius:calc(var(--u)*1.7); overflow:hidden; background:#ececf0; flex:none}
+.dark .m{background:#141416}
+.m img{width:100%; height:100%; object-fit:cover}
+.m.white{background:#fff}
+.gap1{margin-top:calc(var(--u)*1.6)} .gap2{margin-top:calc(var(--u)*2.4)}
+/* full bleed */
+.bleed{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.bleed.low{top:auto; bottom:0; height:64%; object-position:50% 72%}
+.bleed.lower{height:62%}
+.shade::after{content:""; position:absolute; inset:auto 0 0 0; height:58%; background:linear-gradient(to top, rgba(0,0,0,.75), rgba(0,0,0,0)); pointer-events:none}
+.over-bl{position:absolute; left:calc(var(--u)*6); bottom:calc(var(--u)*5.5); z-index:1; text-align:left; max-width:calc(var(--u)*60)}
+.over-bl .sub{margin-left:0}
+.tag{--s:1.9; color:#d2d2d7; font-weight:500; margin-top:calc(var(--u)*1); letter-spacing:-.015em}
+/* duo */
+.duo{position:absolute; inset:0; padding:0 calc(var(--u)*6); display:flex; align-items:center; gap:calc(var(--u)*5); text-align:left}
+.duo .txt{flex:1; min-width:0}
+.duo .sub{margin-left:0}
+.pts{display:flex; flex-direction:column; gap:calc(var(--u)*1.1); margin-top:calc(var(--u)*2)}
+.pts div{--s:var(--t-pt); font-weight:600; letter-spacing:-.03em; line-height:1.1}
+.pts span{color:var(--orange)}
+/* stats */
+.stats{display:flex; justify-content:center; gap:calc(var(--u)*6); margin-top:calc(var(--u)*2.4)}
+.stat b{display:block; font-size:calc(var(--u)*var(--t-stat)); font-weight:600; letter-spacing:-.035em; line-height:1}
+.stat span{display:block; margin-top:calc(var(--u)*.5); font-size:calc(var(--u)*var(--t-cap)); color:var(--ink-2); font-weight:500; letter-spacing:0}
+.dark .stat span{color:var(--fog)}
+.stats.left{justify-content:flex-start; gap:calc(var(--u)*3.5)}
+/* bento */
+.bento{display:grid; width:calc(var(--u)*var(--bw)); grid-template-columns:repeat(3, minmax(0,1fr)); grid-auto-rows:calc(var(--u)*var(--rh)); gap:calc(var(--u)*1); margin-top:calc(var(--u)*2.2)}
+.tile{position:relative; margin:0; border-radius:calc(var(--u)*1.5); overflow:hidden; background:#ececf0}
+.dark .tile{background:#141416}
+.tile.w2{grid-column:span 2}
+.tile img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.tile::after{content:""; position:absolute; inset:auto 0 0 0; height:40%; background:linear-gradient(to top, rgba(0,0,0,.5), transparent)}
+.tile figcaption{position:absolute; z-index:1; left:calc(var(--u)*1.2); bottom:calc(var(--u)*.9); color:#fff; font-size:calc(var(--u)*var(--t-cap)); font-weight:600; text-shadow:0 1px 12px rgba(0,0,0,.4); text-align:left}
+/* swatches, trip, compare */
+.swatches{display:flex; justify-content:center; gap:calc(var(--u)*2.2); margin-top:calc(var(--u)*1.6)}
+.sw{display:flex; flex-direction:column; align-items:center; gap:calc(var(--u)*.5); font-size:calc(var(--u)*var(--t-note)); color:var(--ink-2); font-weight:500}
+.sw i{width:calc(var(--u)*1.6); height:calc(var(--u)*1.6); border-radius:50%; display:block; box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+.trip{display:flex; justify-content:center; gap:calc(var(--u)*3); margin-top:calc(var(--u)*2.2)}
+.trip figure{margin:0; width:calc(var(--u)*15)}
+.trip svg{width:100%; height:auto; display:block}
+.trip figcaption{margin-top:calc(var(--u)*.6); font-size:calc(var(--u)*var(--t-cap)); font-weight:600}
+.trip figcaption span{display:block; color:var(--ink-2); font-weight:500; font-size:.88em}
+.cmp{display:flex; gap:calc(var(--u)*5); margin-top:calc(var(--u)*2.6)}
+.col{width:calc(var(--u)*27); display:flex; flex-direction:column; align-items:center}
+.col h3{font-size:calc(var(--u)*2.2); font-weight:600; letter-spacing:-.03em; margin-top:calc(var(--u)*1.2)}
+.col ul{list-style:none; padding:0; margin:calc(var(--u)*1) 0 0; width:100%}
+.col li{padding:calc(var(--u)*.75) 0; border-top:1px solid var(--line); font-size:calc(var(--u)*1.05); line-height:1.3}
+.col li small{display:block; color:var(--ink-2); font-size:.8em; margin-top:2px}
+/* 3D */
+.viewer{position:relative; width:calc(var(--u)*80); height:calc(var(--u)*35); border-radius:calc(var(--u)*1.7); overflow:hidden; background:#fff; touch-action:none; margin-top:calc(var(--u)*1.6); flex:none}
+.viewer canvas{display:block; width:100% !important; height:100% !important; cursor:grab}
+.viewer canvas:active{cursor:grabbing}
+.viewer .hint{position:absolute; left:50%; bottom:calc(var(--u)*1); transform:translateX(-50%); font-size:calc(var(--u)*.85); color:var(--ink-3); pointer-events:none; white-space:nowrap}
+.viewer .msg{position:absolute; inset:0; display:grid; place-items:center; color:var(--ink-3); font-size:calc(var(--u)*1)}
+.controls{display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:calc(var(--u)*.8) calc(var(--u)*1.4); margin-top:calc(var(--u)*1.3)}
+.seg{display:inline-flex; background:#e8e8ed; border-radius:999px; padding:3px; gap:2px}
+.seg button{font:500 calc(var(--u)*.92)/1 var(--f); border:0; background:transparent; color:var(--ink); padding:calc(var(--u)*.55) calc(var(--u)*1); border-radius:999px; cursor:pointer}
+.seg button[aria-pressed="true"]{background:#fff; box-shadow:0 1px 4px rgba(0,0,0,.12)}
+.btn{font:500 calc(var(--u)*.95)/1 var(--f); border:0; border-radius:999px; padding:calc(var(--u)*.65) calc(var(--u)*1.4); background:var(--orange); color:#fff; cursor:pointer}
+.rng{display:flex; align-items:center; gap:calc(var(--u)*.6); font-size:calc(var(--u)*.92); color:var(--ink-2); font-weight:500}
+.rng input{accent-color:var(--orange); width:calc(var(--u)*9)}
+.rng output{font-variant-numeric:tabular-nums; color:var(--ink); min-width:3.5em}
+button:focus-visible, input:focus-visible{outline:2px solid var(--orange); outline-offset:2px}
+
+/* chrome */
+#bar{position:fixed; z-index:30; left:0; top:0; height:3px; width:0; background:var(--orange); transition:width .45s ease}
+.nav{position:fixed; z-index:30; right:calc(env(safe-area-inset-right, 0px) + 16px); bottom:calc(env(safe-area-inset-bottom, 0px) + 16px); display:flex; align-items:center; gap:2px; padding:4px; border-radius:999px;
+  background:rgba(250,250,252,.74); -webkit-backdrop-filter:saturate(180%) blur(18px); backdrop-filter:saturate(180%) blur(18px); box-shadow:0 2px 14px rgba(0,0,0,.14); color:#1d1d1f; font:500 13px/1 var(--f); transition:opacity .3s}
+.nav.on-dark{background:rgba(44,44,48,.62); color:#f5f5f7}
+.nav button{border:0; background:transparent; color:inherit; font:inherit; padding:8px 11px; border-radius:999px; cursor:pointer; line-height:1}
+.nav button:hover{background:rgba(127,127,127,.2)}
+.nav .count{font-variant-numeric:tabular-nums; min-width:54px; text-align:center}
+.nav.idle{opacity:0}
+#hint{position:fixed; z-index:30; left:50%; bottom:calc(env(safe-area-inset-bottom, 0px) + 22px); transform:translateX(-50%); padding:9px 16px; border-radius:999px; background:rgba(44,44,48,.7); color:#f5f5f7; font:500 13px/1 var(--f); pointer-events:none; transition:opacity .6s; -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px)}
+#hint.gone{opacity:0}
+
+/* portrait: reflow */
+@media (max-aspect-ratio: 6/5){
+  :root{ --u:1vw; --t-xl:19; --t-l:10; --t-m:8; --t-sub:4.1; --t-note:3; --t-pt:6.4; --t-stat:8; --t-cap:3.3; --t-eye:3.6 }
+  .frame{width:100vw; height:100%; overflow-y:auto; overscroll-behavior:contain}
+  .pad{position:relative; inset:auto; min-height:100%; padding:calc(var(--u)*16) calc(var(--u)*6) calc(var(--u)*22); justify-content:center}
+  .m{width:calc(var(--u)*88); height:auto; aspect-ratio:var(--ar); border-radius:calc(var(--u)*4)}
+  .gap1{margin-top:calc(var(--u)*5)} .gap2{margin-top:calc(var(--u)*6)}
+  .bleed.low{height:60%} .bleed.lower{height:55%}
+  .pad.top{justify-content:flex-start; padding-top:calc(var(--u)*24)}
+  .duo .svgbox{width:calc(var(--u)*34) !important}
+  .col .m{width:100%}
+  .over-bl{left:calc(var(--u)*6); right:calc(var(--u)*6); bottom:calc(var(--u)*26); max-width:none}
+  .tag{--s:5.2}
+  .duo{position:relative; inset:auto; min-height:100%; flex-direction:column; justify-content:center; padding:calc(var(--u)*16) calc(var(--u)*6) calc(var(--u)*22); gap:calc(var(--u)*6); text-align:center}
+  .duo .sub{margin-inline:auto}
+  .duo .svgbox{margin-inline:auto}
+  .stats.left{justify-content:center}
+  .bento{width:calc(var(--u)*88); grid-template-columns:repeat(2, minmax(0,1fr)); grid-auto-rows:calc(var(--u)*30); gap:calc(var(--u)*2.4)}
+  .tile{border-radius:calc(var(--u)*3.4)}
+  .trip{gap:calc(var(--u)*3)} .trip figure{width:calc(var(--u)*27)}
+  .cmp{gap:calc(var(--u)*4)} .col{width:calc(var(--u)*42)} .col h3{font-size:calc(var(--u)*5.6)} .col li{font-size:calc(var(--u)*3.3); padding:calc(var(--u)*2.2) 0}
+  .viewer{width:calc(var(--u)*88); height:calc(var(--u)*100); border-radius:calc(var(--u)*4)}
+  .viewer .hint{font-size:calc(var(--u)*3)}
+  .controls{gap:calc(var(--u)*2.4)}
+  .seg button{font-size:calc(var(--u)*3.4); padding:calc(var(--u)*2) calc(var(--u)*3.2)}
+  .btn{font-size:calc(var(--u)*3.6); padding:calc(var(--u)*2.4) calc(var(--u)*5)}
+  .rng{font-size:calc(var(--u)*3.4)} .rng input{width:calc(var(--u)*30)}
+  .nav{left:50%; right:auto; transform:translateX(-50%)}
+}
+@media (prefers-reduced-motion: reduce){ .slide, #deck, #bar{transition:none !important} }
+</style>
+</head>
+<body>
+<div id="deck">
+<!-- 1 -->
+<section class="slide dark" data-name="iStand">
+  <div class="frame">
+    <img class="bleed low" data-src="img/a2_istand_black.webp" alt="iStand in Space Black on a black stage" fetchpriority="high">
+    <div class="pad top"><h1 class="sz h-xl" style="margin-top:calc(var(--u)*2)">iStand</h1><p class="sz tag">Stand tall. Anywhere.</p></div>
+  </div>
+</section>
+<!-- 2 -->
+<section class="slide light">
+  <div class="frame"><div class="pad">
+    <h2 class="sz h-l">Every table.<br>Your desk.</h2>
+    <p class="sz sub">Hotel desk, café table, kitchen counter. iStand turns any of them into a real standing workstation.</p>
+    <div class="m gap1" style="--w:55;--h:31;--ar:16/9"><img data-src="img/l1_hotel_room.webp" alt="A man works standing at iStand on a hotel desk, laptop at eye level"></div>
+  </div></div>
+</section>
+<!-- 3 -->
+<section class="slide paper">
+  <div class="frame"><div class="duo">
+    <div class="m" style="--w:48;--h:27;--ar:16/9"><img data-src="img/l8_posture_profile.webp" alt="Side profile of a person standing upright at iStand"></div>
+    <div class="txt">
+      <p class="sz eyebrow">Posture</p>
+      <h2 class="sz h-m">Built around your body.</h2>
+      <div class="pts"><div class="sz">Screen at <span>eye level.</span></div><div class="sz">Elbows at <span>90°.</span></div><div class="sz">Spine <span>straight.</span></div></div>
+      <div class="svgbox" id="postureSvg" style="width:calc(var(--u)*14); margin-top:calc(var(--u)*2)" aria-hidden="true"></div>
+    </div>
+  </div></div>
+</section>
+<!-- 4 -->
+<section class="slide light">
+  <div class="frame"><div class="pad">
+    <p class="sz eyebrow">Fit-link</p>
+    <h2 class="sz h-l">Fit once.<br>Lift anywhere.</h2>
+    <p class="sz sub">Set the gap between the two tiers to your body once. At every new table, one lift raises both.</p>
+    <div class="trip" id="trip"></div>
+  </div></div>
+</section>
+<!-- 5 -->
+<section class="slide dark">
+  <div class="frame shade">
+    <img class="bleed" data-src="img/d4_edge.webp" alt="Macro of a diamond-cut chamfered aluminium deck corner">
+    <div class="over-bl"><h2 class="sz h-l">One material.<br>One accent.</h2><p class="sz sub">Bead-blasted aluminium. Diamond-cut edges. A single orange lever, right where your hand goes.</p></div>
+  </div>
+</section>
+<!-- 6 -->
+<section class="slide dark">
+  <div class="frame"><div class="pad mid">
+    <h2 class="sz h-m">Every detail, considered.</h2>
+    <div class="bento" style="--bw:72;--rh:26; grid-template-columns:repeat(2, minmax(0,1fr))">
+      <figure class="tile"><img data-src="img/d1_lever.webp" alt="Orange release lever set flush into an aluminium mast"><figcaption>One-touch lift.</figcaption></figure>
+      <figure class="tile"><img data-src="img/d2_foot.webp" alt="Thin aluminium foot blade on an oak table"><figcaption>Feet that fold flat.</figcaption></figure>
+    </div>
+  </div></div>
+</section>
+<!-- 7 -->
+<section class="slide light">
+  <div class="frame"><div class="pad">
+    <h2 class="sz h-l">Silver. Space Black.</h2>
+    <div class="m white gap1" style="--w:52;--h:29.25;--ar:16/9"><img data-src="img/h2_finishes.webp" alt="iStand in Silver and Space Black side by side"></div>
+    <div class="swatches"><div class="sw"><i style="background:#d9dadc"></i>Silver</div><div class="sw"><i style="background:#2c2e32"></i>Space Black</div></div>
+  </div></div>
+</section>
+<!-- 8 -->
+<section class="slide paper">
+  <div class="frame"><div class="pad">
+    <h2 class="sz h-l">Folds like a book.</h2>
+    <p class="sz sub">Two decks close. Masts, feet and strut live inside.</p>
+    <div class="m white gap1" style="--w:60;--h:23.4;--ar:2.56"><img data-src="img/a5_folded.webp" alt="iStand folded into a slim aluminium slab with an orange pull tab"></div>
+    <div class="stats"><div class="stat"><b>4.8 cm</b><span>thin</span></div><div class="stat"><b>47 × 27</b><span>cm footprint</span></div><div class="stat"><b>1.7 kg</b><span>with power</span></div></div>
+    <p class="sz note" style="margin-top:calc(var(--u)*1.4)">Concept targets.</p>
+  </div></div>
+</section>
+<!-- 9 -->
+<section class="slide light">
+  <div class="frame"><div class="pad">
+    <h2 class="sz h-l">Open. Lift. Work.</h2>
+    <div class="m white gap2" style="--w:86;--h:36.9;--ar:21/9"><img data-src="img/f5_sequence.webp" alt="Four stages: closed slab, opened like a book, masts rising, fully set up"></div>
+  </div></div>
+</section>
+<!-- 10 -->
+<section class="slide dark">
+  <div class="frame"><div class="pad">
+    <h2 class="sz h-l">Made to travel.</h2>
+    <div class="bento" style="--bw:70;--rh:12.8">
+      <figure class="tile w2"><img data-src="img/f3_airport_carry.webp" alt="A traveller carries folded iStand through an airport"><figcaption>Carry it like a portfolio.</figcaption></figure>
+      <figure class="tile"><img data-src="img/f9_unfold_hands.webp" alt="Hands opening iStand like a book"><figcaption>Opens like a book.</figcaption></figure>
+      <figure class="tile"><img data-src="img/f4_carryon.webp" alt="Folded iStand packed flat in a carry-on"><figcaption>Packs flat.</figcaption></figure>
+      <figure class="tile"><img data-src="img/f2_backpack.webp" alt="Folded iStand sliding into a backpack"><figcaption>Slides into your bag.</figcaption></figure>
+      <figure class="tile"><img data-src="img/f6_sleeve.webp" alt="Folded iStand in a woven sleeve with its power puck"><figcaption>Sleeve and puck.</figcaption></figure>
+      <figure class="tile"><img data-src="img/f7_hotel_bed.webp" alt="Folded iStand on a hotel bed beside a passport"><figcaption>Check in. Set up.</figcaption></figure>
+      <figure class="tile w2"><img data-src="img/f8_knolling.webp" alt="Every iStand part laid out neatly"><figcaption>Every part in its place.</figcaption></figure>
+    </div>
+  </div></div>
+</section>
+<!-- 11 -->
+<section class="slide light">
+  <div class="frame"><div class="pad">
+    <h2 class="sz h-l">Wherever work happens.</h2>
+    <div class="bento" style="--bw:70;--rh:12.8">
+      <figure class="tile w2"><img data-src="img/l2_cafe.webp" alt="A woman works standing at iStand on a café table"><figcaption>Café.</figcaption></figure>
+      <figure class="tile"><img data-src="img/l6_kitchen_island.webp" alt="A woman works standing at iStand on a kitchen island"><figcaption>Kitchen counter.</figcaption></figure>
+      <figure class="tile"><img data-src="img/l3_coworking.webp" alt="A man works standing at iStand in a coworking space"><figcaption>Coworking.</figcaption></figure>
+      <figure class="tile w2"><img data-src="img/l4_hotel_lobby.webp" alt="A woman works standing at iStand in a hotel lobby"><figcaption>Hotel lobby.</figcaption></figure>
+      <figure class="tile"><img data-src="img/l5_airport_lounge.webp" alt="A traveller works standing at iStand in an airport lounge"><figcaption>Airport lounge.</figcaption></figure>
+      <figure class="tile w2"><img data-src="img/l7_dual_screen.webp" alt="A man works at iStand with a monitor on top and laptop below"><figcaption>Dual screen.</figcaption></figure>
+    </div>
+  </div></div>
+</section>
+<!-- 12 -->
+<section class="slide dark">
+  <div class="frame"><div class="duo">
+    <div class="m" style="--w:42;--h:31.5;--ar:4/3"><img data-src="img/d3_puck.webp" alt="Aluminium power puck docked under the deck"></div>
+    <div class="txt">
+      <h2 class="sz h-l">Power,<br>built in.</h2>
+      <p class="sz sub">A detachable puck docks under the deck. One cord to the wall charges everything on your desk.</p>
+      <div class="stats left"><div class="stat"><b>100 W</b><span>USB-C</span></div><div class="stat"><b>4</b><span>plug heads</span></div><div class="stat"><b>2 m</b><span>braided cord</span></div></div>
+      <p class="sz note" style="margin-top:calc(var(--u)*1.6)">US, UK, EU and AU plug heads. AC outlet in regional editions. Concept targets.</p>
+    </div>
+  </div></div>
+</section>
+<!-- 13 -->
+<section class="slide paper" id="s-explore">
+  <div class="frame"><div class="pad" style="padding-top:calc(var(--u)*3)">
+    <h2 class="sz h-l">Take a closer look.</h2>
+    <div class="viewer" id="viewer" aria-label="Interactive 3D model of iStand"><div class="msg" id="vmsg">Loading 3D model…</div><div class="hint" id="vhint">Drag to rotate · Scroll to zoom</div></div>
+    <div class="controls">
+      <div class="seg" id="segModel"><button type="button" data-v="istand" aria-pressed="true">iStand</button><button type="button" data-v="pro" aria-pressed="false">iStand Pro</button></div>
+      <div class="seg" id="segFinish"><button type="button" data-v="silver" aria-pressed="true">Silver</button><button type="button" data-v="black" aria-pressed="false">Space Black</button></div>
+      <div class="seg" id="segTable"><button type="button" data-v="75" aria-pressed="true">Desk</button><button type="button" data-v="91" aria-pressed="false">Counter</button></div>
+      <label class="rng" for="inH">Your height <input type="range" id="inH" min="155" max="195" value="175"><output id="outH">175 cm</output></label>
+      <div class="seg" id="segPerson"><button type="button" data-v="on" aria-pressed="true">Person</button><button type="button" data-v="off" aria-pressed="false">Product</button></div>
+      <button type="button" class="btn" id="btnFold" aria-pressed="false">Fold</button>
+    </div>
+  </div></div>
+</section>
+<!-- 14 -->
+<section class="slide dark" data-name="iStand Pro">
+  <div class="frame">
+    <img class="bleed low lower" data-src="img/a4_pro_black.webp" alt="iStand Pro in Space Black on a black stage">
+    <div class="pad top"><h2 class="sz h-xl" style="--s:calc(var(--t-xl)*.88); margin-top:calc(var(--u)*2)">iStand Pro</h2><p class="sz tag">Your display comes with you.</p></div>
+  </div>
+</section>
+<!-- 15 -->
+<section class="slide light">
+  <div class="frame"><div class="pad">
+    <h2 class="sz h-l">Two screens. One footprint.</h2>
+    <p class="sz sub">A 16-inch display at eye level. Your laptop at your elbows. Everything on one base.</p>
+    <div class="bento" style="--bw:70;--rh:14">
+      <figure class="tile w2"><img data-src="img/p1_pro_hotel.webp" alt="A woman works standing at iStand Pro in a hotel suite"><figcaption>Hotel suite.</figcaption></figure>
+      <figure class="tile"><img data-src="img/p3_pro_studio.webp" alt="A woman works standing at iStand Pro in a design studio"><figcaption>Studio.</figcaption></figure>
+      <figure class="tile"><img data-src="img/a3_pro_rear.webp" alt="Rear of iStand Pro with ports in the base"><figcaption>Ports at the back.</figcaption></figure>
+      <figure class="tile w2"><img data-src="img/p2_pro_cowork.webp" alt="A man works standing at iStand Pro in a coworking space"><figcaption>Hot desk.</figcaption></figure>
+    </div>
+  </div></div>
+</section>
+<!-- 16 -->
+<section class="slide paper">
+  <div class="frame"><div class="pad">
+    <h2 class="sz h-l">Folds flat. Display and all.</h2>
+    <div class="m white gap1" style="--w:48;--h:27;--ar:16/9"><img data-src="img/pf1_pro_folded.webp" alt="iStand Pro folded into a slim aluminium slab"></div>
+    <div class="stats"><div class="stat"><b>16″</b><span>built-in display</span></div><div class="stat"><b>140 W</b><span>hub in the base</span></div><div class="stat"><b>3.2 kg</b><span>folded</span></div></div>
+    <p class="sz note" style="margin-top:calc(var(--u)*1.4)">Concept targets.</p>
+  </div></div>
+</section>
+<!-- 17 -->
+<section class="slide light">
+  <div class="frame"><div class="pad">
+    <h2 class="sz h-l">Which iStand is for you?</h2>
+    <div class="cmp">
+      <div class="col">
+        <div class="m white" style="--w:27;--h:15.2;--ar:16/9"><img data-src="img/a1_istand_silver.webp" alt="iStand in Silver" style="object-fit:contain"></div>
+        <h3>iStand</h3>
+        <ul><li>Your laptop or monitor<small>Screen</small></li><li>Keyboard deck and screen shelf<small>Tiers</small></li><li>4.8 cm · 1.7 kg<small>Folded</small></li><li>100 W USB-C puck<small>Power</small></li></ul>
+      </div>
+      <div class="col">
+        <div class="m white" style="--w:27;--h:15.2;--ar:16/9"><img data-src="img/a3_pro_silver.webp" alt="iStand Pro in Silver" style="object-fit:contain"></div>
+        <h3>iStand Pro</h3>
+        <ul><li>Built-in 16-inch display<small>Screen</small></li><li>Display and laptop shelf<small>Tiers</small></li><li>5 cm · 3.2 kg<small>Folded</small></li><li>140 W hub, one-cable video<small>Power</small></li></ul>
+      </div>
+    </div>
+  </div></div>
+</section>
+<!-- 18 -->
+<section class="slide dark">
+  <div class="frame"><div class="pad mid">
+    <h2 class="sz h-xl">iStand</h2>
+    <p class="sz tag">Stand tall. Anywhere.</p>
+    <p class="sz note" style="margin-top:calc(var(--u)*2.4)">iStand and iStand Pro · Concept, October 2026 · Renders are design concepts.</p>
+  </div></div>
+</section>
+</div>
+
+<div id="bar" aria-hidden="true"></div>
+<nav class="nav" id="nav" aria-label="Slides">
+  <button type="button" id="prev" aria-label="Previous slide">‹</button>
+  <span class="count" id="count">1 / 18</span>
+  <button type="button" id="next" aria-label="Next slide">›</button>
+  <button type="button" id="fs" aria-label="Full screen">⤢</button>
+</nav>
+<div id="hint">Use ← → or click to move through the slides</div>
+
+<script>window.__VENDOR__={"three": "vendor/three.min.js", "orbit": "vendor/OrbitControls.js", "room": "vendor/RoomEnvironment.js"}</script>
+<script>
+(function(){
+'use strict';
+const $ = id => document.getElementById(id);
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ---------- ergonomics + diagrams ---------- */
+const LID_TILT = 15*Math.PI/180;
+function fit(H, T, mode){
+  const eye = 0.93*H + 2.5, elbow = 0.62*H + 2.5, home = elbow - 2.5;
+  if (mode === 'pro'){ const dispH = 0.8 + 22.6*Math.cos(8*Math.PI/180); return {eye, elbow, K: home - 1.5 - T, S: eye + 2 - dispH - T}; }
+  const lapH = 1.55 + 21.5*Math.cos(LID_TILT);
+  return {eye, elbow, K: home - 2.0 - T, S: eye + 2 - lapH - T};
+}
+function elevation(H, T, opts){
+  const f = fit(H, T, 'istand'), k = H/175, S = f.S, K = f.K;
+  const Y = y => (212 - y).toFixed(1), n = v => v.toFixed(1);
+  const reach = 0.196*H, homeU = 15.5, homeY = T + K + 2;
+  const elU = homeU + Math.sqrt(Math.max(reach*reach - Math.pow(f.elbow - homeY, 2), 4));
+  const sh = {u: elU + 2, y: 0.818*H + 2.5}, hip = {u: sh.u + 1.5, y: 0.53*H + 2.5}, knee = {u: hip.u - 1, y: 0.285*H + 2.5}, ank = {u: hip.u + .5, y: 4};
+  const head = {u: sh.u - 3.5*k, y: f.eye + 1.5*k}, eyeU = head.u - 7*k;
+  const lidTop = {u: -12 - 21.5*Math.sin(LID_TILT), y: T + S + 1.55 + 21.5*Math.cos(LID_TILT)};
+  const c = opts.colors, o = [];
+  o.push(`<rect x="-46" y="${Y(T)}" width="72" height="3" fill="${c.table}"/>`, `<rect x="-42" y="${Y(T-3)}" width="3" height="${n(T-3)}" fill="${c.table}"/>`, `<rect x="20" y="${Y(T-3)}" width="3" height="${n(T-3)}" fill="${c.table}"/>`);
+  o.push(`<rect x="-22" y="${Y(T+.8)}" width="44" height=".8" fill="${c.metal}"/>`, `<rect x="-1.1" y="${Y(T+S-1)}" width="2.2" height="${n(S-1.8)}" fill="${c.metal}"/>`);
+  o.push(`<line x1="-13" y1="${Y(T+S-1)}" x2="-24" y2="${Y(T+.3)}" stroke="${c.metal}" stroke-width="1" stroke-linecap="round"/>`);
+  o.push(`<rect x="-14" y="${Y(T+S)}" width="26" height="1" rx=".4" fill="${c.metal}"/>`, `<rect x=".5" y="${Y(T+K)}" width="23" height="1" rx=".4" fill="${c.metal}"/>`);
+  o.push(`<rect x="-1.4" y="${Y(T+K+4)}" width="2.8" height="1.6" fill="${c.orange}"/>`);
+  o.push(`<rect x="-12" y="${Y(T+S+1.55)}" width="22" height="1.55" rx=".5" fill="${c.device}"/>`, `<line x1="-12" y1="${Y(T+S+1.55)}" x2="${n(lidTop.u)}" y2="${Y(lidTop.y)}" stroke="${c.device}" stroke-width="1.1" stroke-linecap="round"/>`);
+  o.push(`<rect x="9.2" y="${Y(T+K+1.3)}" width="11.5" height="1.3" rx=".4" fill="${c.device}"/>`);
+  const g = [];
+  g.push(`<path d="M${n(hip.u)} ${Y(hip.y)} L${n(knee.u)} ${Y(knee.y)} L${n(ank.u)} ${Y(ank.y)}" stroke-width="${n(11*k)}"/>`);
+  g.push(`<line x1="${n(sh.u+1)}" y1="${Y(sh.y-5*k)}" x2="${n(hip.u+1)}" y2="${Y(hip.y+5*k)}" stroke-width="${n(22*k)}"/>`);
+  g.push(`<line x1="${n(sh.u-1.5*k)}" y1="${Y(sh.y+7*k)}" x2="${n(sh.u-.5)}" y2="${Y(sh.y-2)}" stroke-width="${n(8*k)}"/>`);
+  g.push(`<ellipse cx="${n(head.u)}" cy="${Y(head.y)}" rx="${n(9.8*k)}" ry="${n(12*k)}" stroke="none"/>`);
+  g.push(`<path d="M${n(sh.u)} ${Y(sh.y-2*k)} L${n(elU)} ${Y(f.elbow)} L${n(homeU+3)} ${Y(homeY+1.5)}" stroke-width="${n(7*k)}"/>`);
+  o.push(`<g fill="${c.person}" stroke="${c.person}" stroke-linecap="round" stroke-linejoin="round">${g.join('')}</g>`);
+  if (opts.lines){
+    o.push(`<line x1="${n(eyeU)}" y1="${Y(f.eye)}" x2="${n(lidTop.u - 6)}" y2="${Y(f.eye)}" stroke="${c.orange}" stroke-width=".7" stroke-dasharray="2 1.4"/>`);
+    o.push(`<line x1="${n(elU)}" y1="${Y(f.elbow)}" x2="-4" y2="${Y(f.elbow)}" stroke="${c.orange}" stroke-width=".7" stroke-dasharray="2 1.4"/>`);
+  }
+  if (opts.gap) o.push(`<path d="M-18 ${Y(T+K)} H-20 V${Y(T+S)} H-18" fill="none" stroke="${c.orange}" stroke-width=".9"/>`);
+  o.push(`<line x1="-60" y1="${Y(0)}" x2="${n(sh.u + 22)}" y2="${Y(0)}" stroke="${c.table}" stroke-width=".8"/>`);
+  return `<svg viewBox="-58 ${n(212 - (H + 12))} ${n(sh.u + 80)} ${n(H + 16)}" role="img" aria-label="Side view: screen at eye level, keyboard at elbow height">${o.join('')}</svg>`;
+}
+const LIGHT = {table:'#d2d2d7', metal:'#1d1d1f', device:'#86868b', person:'#c7c7cc', orange:'#ff5a1f'};
+$('postureSvg').innerHTML = elevation(175, 75, {colors: LIGHT, lines: true});
+$('trip').innerHTML = [[72, 'Low desk', '72 cm'], [75, 'Hotel desk', '75 cm'], [91, 'Counter', '91 cm']].map(([t, a, b]) =>
+  `<figure>${elevation(175, t, {colors: LIGHT, gap: true})}<figcaption>${a}<span>${b}</span></figcaption></figure>`).join('');
+
+/* ---------- slide engine ---------- */
+const slides = [...document.querySelectorAll('.slide')], N = slides.length, deck = $('deck'), nav = $('nav');
+const EXPLORE = slides.indexOf($('s-explore'));
+let cur = -1;
+function loadImgs(i){ const s = slides[i]; if (!s) return; s.querySelectorAll('img[data-src]').forEach(im => { im.src = im.dataset.src; im.removeAttribute('data-src'); }); }
+function go(i, fromHash){
+  i = clamp(i, 0, N - 1); if (i === cur) return;
+  if (cur >= 0) slides[cur].classList.remove('on');
+  cur = i; const s = slides[i];
+  loadImgs(i); [i + 1, i + 2, i - 1].forEach(loadImgs);
+  s.classList.add('on'); s.setAttribute('aria-hidden', 'false');
+  slides.forEach((x, k) => { if (k !== i) x.setAttribute('aria-hidden', 'true'); });
+  deck.style.setProperty('--bg', getComputedStyle(s).backgroundColor);
+  $('count').textContent = `${i + 1} / ${N}`; $('bar').style.width = `${(i + 1)/N*100}%`;
+  nav.classList.toggle('on-dark', s.classList.contains('dark'));
+  const fr = s.querySelector('.frame'); if (fr) fr.scrollTop = 0;
+  if (!fromHash){ try { history.replaceState(null, '', '#' + (i + 1)); } catch(e){} }
+  if (i >= EXPLORE - 1) load3D();
+  if (V3) V3.active(i === EXPLORE);
+}
+const next = () => go(cur + 1), prev = () => go(cur - 1);
+$('next').onclick = e => { e.stopPropagation(); next(); };
+$('prev').onclick = e => { e.stopPropagation(); prev(); };
+$('fs').onclick = e => { e.stopPropagation(); const d = document.documentElement; try { if (!document.fullscreenElement){ const r = d.requestFullscreen && d.requestFullscreen(); if (r && r.catch) r.catch(() => {}); } else document.exitFullscreen(); } catch(err){} };
+document.addEventListener('keydown', e => {
+  if (e.target.closest && e.target.closest('input, textarea')) return;
+  if (['ArrowRight','ArrowDown','PageDown',' ','Enter'].includes(e.key)){ e.preventDefault(); next(); }
+  else if (['ArrowLeft','ArrowUp','PageUp','Backspace'].includes(e.key)){ e.preventDefault(); prev(); }
+  else if (e.key === 'Home'){ e.preventDefault(); go(0); } else if (e.key === 'End'){ e.preventDefault(); go(N - 1); }
+  else if (e.key === 'f' || e.key === 'F') $('fs').click();
+});
+const interactive = t => t.closest && t.closest('button, a, input, label, .viewer, .controls, .nav');
+deck.addEventListener('click', e => { if (interactive(e.target)) return; if (window.getSelection && String(window.getSelection())) return; (e.clientX < innerWidth*.3) ? prev() : next(); });
+let tx = 0, ty = 0, tOn = false;
+deck.addEventListener('touchstart', e => { if (interactive(e.target)) { tOn = false; return; } tOn = true; tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive: true});
+deck.addEventListener('touchend', e => { if (!tOn) return; const dx = e.changedTouches[0].clientX - tx, dy = e.changedTouches[0].clientY - ty; if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)*1.4){ dx < 0 ? next() : prev(); } }, {passive: true});
+let acc = 0, lock = 0;
+deck.addEventListener('wheel', e => {
+  if (interactive(e.target)) return;
+  const fr = slides[cur].querySelector('.frame'); if (fr && fr.scrollHeight > fr.clientHeight + 4) return;
+  const now = performance.now(); if (now < lock) return;
+  acc += e.deltaY + e.deltaX; if (Math.abs(acc) > 90){ acc > 0 ? next() : prev(); acc = 0; lock = now + 850; }
+}, {passive: true});
+let idleT; const wake = () => { nav.classList.remove('idle'); clearTimeout(idleT); idleT = setTimeout(() => { if (document.fullscreenElement) nav.classList.add('idle'); }, 2500); };
+['mousemove','touchstart','keydown'].forEach(ev => document.addEventListener(ev, wake, {passive: true}));
+const hintEl = $('hint');
+if (hintEl && matchMedia('(pointer: coarse)').matches) hintEl.textContent = 'Swipe or tap to move through the slides';
+setTimeout(() => { if (hintEl) hintEl.classList.add('gone'); }, 3800);
+window.addEventListener('hashchange', () => { const h = parseInt(location.hash.slice(1), 10); if (h >= 1 && h <= N) go(h - 1, true); });
+
+/* ---------- 3D (lazy) ---------- */
+let V3 = null, loading = null;
+function loadScript(src){ return new Promise((res, rej) => { const s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = rej; document.head.appendChild(s); }); }
+function load3D(){
+  if (loading) return loading;
+  const L = window.__VENDOR__;
+  loading = loadScript(L.three).then(() => Promise.all([loadScript(L.orbit), loadScript(L.room)])).then(() => {
+    try { V3 = viewer($('viewer')); $('vmsg').remove(); V3.active(cur === EXPLORE); }
+    catch(err){ $('vmsg').textContent = 'The 3D model needs WebGL, which isn’t available on this device.'; }
+  }).catch(() => { $('vmsg').textContent = 'The 3D model could not load. Check your connection.'; });
+  return loading;
+}
+function viewer(host){
+  const probe = document.createElement('canvas');
+  if (!(probe.getContext('webgl') || probe.getContext('experimental-webgl'))) throw new Error('no webgl');
+  const R = new THREE.WebGLRenderer({antialias: true});
+  R.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  R.outputEncoding = THREE.sRGBEncoding; R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = .95;
+  R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap; R.shadowMap.autoUpdate = false;
+  host.prepend(R.domElement);
+  const scene = new THREE.Scene(); scene.background = new THREE.Color('#ffffff');
+  if (THREE.RoomEnvironment){ const pm = new THREE.PMREMGenerator(R); scene.environment = pm.fromScene(new THREE.RoomEnvironment(), .04).texture; }
+  const cam = new THREE.PerspectiveCamera(28, 16/9, 5, 4000);
+  const ctl = new THREE.OrbitControls(cam, R.domElement);
+  ctl.enableDamping = true; ctl.dampingFactor = .08; ctl.minDistance = 70; ctl.maxDistance = 700; ctl.maxPolarAngle = Math.PI*.49; ctl.enablePan = false;
+  ctl.autoRotate = !reduce; ctl.autoRotateSpeed = .55;
+  ctl.addEventListener('start', () => { ctl.autoRotate = false; const h = $('vhint'); if (h) h.hidden = true; });
+  const lin = h => new THREE.Color(h).convertSRGBToLinear();
+  const std = (h, m, r, x) => new THREE.MeshStandardMaterial(Object.assign({color: lin(h), metalness: m, roughness: r}, x || {}));
+  function tex(w, h, draw){ const c = document.createElement('canvas'); c.width = w; c.height = h; draw(c.getContext('2d'), w, h); const t = new THREE.CanvasTexture(c); t.encoding = THREE.sRGBEncoding; t.anisotropy = 4; return t; }
+  let sd = 7; const rnd = () => (sd = sd*16807 % 2147483647)/2147483647;
+  const wood = tex(1024, 512, (g, w, h) => { g.fillStyle = '#dcc199'; g.fillRect(0, 0, w, h); for (let i = 0; i < 220; i++){ const y = rnd()*h; g.strokeStyle = `rgba(150,112,70,${.03 + rnd()*.08})`; g.lineWidth = .6 + rnd()*2; g.beginPath(); g.moveTo(0, y); for (let x = 0; x <= w; x += 32) g.lineTo(x, y + Math.sin(x/160 + i)*3*rnd()); g.stroke(); } });
+  const screenT = tex(512, 320, (g, w, h) => { const gr = g.createLinearGradient(0, 0, w, h); gr.addColorStop(0, '#f0f1f4'); gr.addColorStop(1, '#dfe3ea'); g.fillStyle = gr; g.fillRect(0, 0, w, h); g.fillStyle = '#ffffff'; g.fillRect(28, 26, w - 56, 34); g.fillStyle = '#c9ced8'; for (let r = 0; r < 7; r++) g.fillRect(28, 84 + r*28, 120 + rnd()*260, 10); g.fillStyle = '#ff5a1f'; g.fillRect(28, 84 + 7*28, 70, 10); });
+  const keysT = tex(512, 200, (g, w, h) => { g.fillStyle = '#cfd2d6'; g.fillRect(0, 0, w, h); g.fillStyle = '#fbfbfc'; const kw = w/15; for (let r = 0; r < 5; r++) for (let c = 0; c < 15; c++){ if (r === 4 && c > 3 && c < 11){ if (c === 4) g.fillRect(4*kw + 3, r*40 + 4, 7*kw - 6, 32); continue; } g.fillRect(c*kw + 3, r*40 + 4, kw - 6, 32); } });
+  const M = {
+    body: std('#cdd0d4', 1, .32), inlay: std('#e4e5e8', 0, .85), orange: std('#ff5a1f', .1, .4),
+    oak: new THREE.MeshStandardMaterial({map: wood, roughness: .75}), leg: std('#c9cace', .3, .5),
+    alu: std('#c8ccd1', 1, .3), keys: new THREE.MeshStandardMaterial({map: keysT, roughness: .6}), dark: std('#1a1b1e', .3, .35),
+    screen: new THREE.MeshStandardMaterial({color: 0x000000, emissive: 0xffffff, emissiveMap: screenT, emissiveIntensity: .95, roughness: .2}),
+    ghost: new THREE.MeshStandardMaterial({color: lin('#9ea5b0'), transparent: true, opacity: .26, depthWrite: false, roughness: .9})
+  };
+  const FIN = {silver: {body: ['#cdd0d4', 1, .32], inlay: '#e4e5e8'}, black: {body: ['#2d2f33', .85, .38], inlay: '#1e1f22'}};
+  function setFinish(f){ const d = FIN[f]; M.body.color.copy(lin(d.body[0])); M.body.metalness = d.body[1]; M.body.roughness = d.body[2]; M.inlay.color.copy(lin(d.inlay)); }
+  function mesh(g, m, ns){ const o = new THREE.Mesh(g, m); if (!ns){ o.castShadow = true; o.receiveShadow = true; } return o; }
+  function rr(w, d, r){ const s = new THREE.Shape(), x = -w/2, y = -d/2; r = Math.min(r, w/2 - .01, d/2 - .01); s.moveTo(x + r, y); s.lineTo(x + w - r, y); s.quadraticCurveTo(x + w, y, x + w, y + r); s.lineTo(x + w, y + d - r); s.quadraticCurveTo(x + w, y + d, x + w - r, y + d); s.lineTo(x + r, y + d); s.quadraticCurveTo(x, y + d, x, y + d - r); s.lineTo(x, y + r); s.quadraticCurveTo(x, y, x + r, y); return s; }
+  function slab(w, h, d, r, m, bev){ const b = bev || Math.min(.18, h*.2); const g = new THREE.ExtrudeGeometry(rr(w - 2*b, d - 2*b, Math.max(r - b, .05)), {depth: h - 2*b, bevelEnabled: true, bevelThickness: b, bevelSize: b, bevelSegments: 2, curveSegments: 8}); g.rotateX(-Math.PI/2); g.translate(0, -h/2 + b, 0); return mesh(g, m); }
+  function prism(w, len, r, m){ const g = new THREE.ExtrudeGeometry(rr(w, w, r), {depth: len, bevelEnabled: false, curveSegments: 6}); g.rotateX(-Math.PI/2); return mesh(g, m); }
+  function deckM(w, d){ const g = new THREE.Group(); const b = slab(w, 1.0, d, 1.4, M.body); b.position.y = -.5; g.add(b); const t = slab(w - 1.6, .08, d - 1.6, 1.0, M.inlay, .02); t.position.y = .01; g.add(t); return g; }
+  scene.add(new THREE.HemisphereLight(0xffffff, 0xd8d8dc, .55));
+  const sun = new THREE.DirectionalLight(0xffffff, .9); sun.position.set(120, 300, 160); sun.castShadow = true; sun.shadow.mapSize.set(2048, 2048);
+  Object.assign(sun.shadow.camera, {left: -150, right: 150, top: 150, bottom: -150, near: 50, far: 900}); sun.shadow.bias = -.0005; sun.shadow.radius = 5; scene.add(sun);
+  const floor = new THREE.Mesh(new THREE.PlaneGeometry(1600, 1600), new THREE.ShadowMaterial({opacity: .1})); floor.rotation.x = -Math.PI/2; floor.receiveShadow = true; scene.add(floor);
+  const table = new THREE.Group(); scene.add(table);
+  const top = slab(130, 3, 72, 1.5, M.oak, .4); table.add(top);
+  const legs = [[-61, -42], [61, -42], [-61, 22], [61, 22]].map(([x, z]) => { const l = mesh(new THREE.BoxGeometry(3.4, 1, 3.4), M.leg); l.position.set(x, 0, z); table.add(l); return l; });
+  const V = (x, y, z) => new THREE.Vector3(x, y, z);
+  const ease = x => x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3)/2, ph = (t, a, b) => ease(clamp((t - a)/(b - a), 0, 1));
+  /* iStand */
+  const IS = new THREE.Group(); scene.add(IS);
+  const G = {MX: 25, ST: [{w: 2.2, len: 41}, {w: 1.95, len: 39}, {w: 1.7, len: 37}], LOCK: 1.2, FH: .8, FOOT: 22.5, PIV: 2.4};
+  const masts = [-1, 1].map(side => {
+    const g = new THREE.Group(); IS.add(g);
+    const stages = G.ST.map(s => { const m = prism(s.w, s.len, .45, M.body); g.add(m); return m; });
+    const collars = [0, 1].map(i => { const c = prism(G.ST[i].w + .3, G.LOCK, .55, M.body); g.add(c); return c; });
+    const lever = mesh(new THREE.BoxGeometry(.35, 1.5, .9), M.orange); g.add(lever);
+    const hub = slab(3, G.FH, 2*G.PIV, .6, M.body, .1); hub.position.y = G.FH/2; g.add(hub);
+    const blades = [1, -1].map(dir => { const p = new THREE.Group(); p.position.set(0, 0, dir*G.PIV); g.add(p); const L = G.FOOT - G.PIV; const b = slab(3, G.FH, L, .8, M.body, .12); b.position.set(0, G.FH/2, dir*L/2); p.add(b); p.userData.dir = dir; return p; });
+    return {g, stages, collars, lever, blades, side};
+  });
+  const kdeck = deckM(46, 23); IS.add(kdeck);
+  [-1, 1].forEach(s => { const c = slab(2.6, 1.0, 2.8, .4, M.body, .1); c.position.set(s*24, -.5, -12); kdeck.add(c); });
+  const shelf = deckM(46, 26); IS.add(shelf);
+  const lip = slab(44, .7, .5, .2, M.body, .08); lip.position.set(0, .35, 12.75); shelf.add(lip);
+  [-1, 1].forEach(s => { const c = slab(2.6, 1.0, 2.8, .4, M.body, .1); c.position.set(s*24, -.5, 1); shelf.add(c); });
+  const strut = new THREE.Group(); IS.add(strut); const strutT = mesh(new THREE.CylinderGeometry(.42, .42, 1, 16), M.body); strut.add(strutT);
+  const puck = slab(7, 2.4, 7, 1.8, M.body, .3); IS.add(puck);
+  /* iStand Pro */
+  const PRO = new THREE.Group(); scene.add(PRO);
+  const pbase = slab(38, 1.8, 24, 2.2, M.body, .3); PRO.add(pbase);
+  const pport = mesh(new THREE.BoxGeometry(12, .5, .2), M.dark); PRO.add(pport);
+  const pcolG = new THREE.Group(); PRO.add(pcolG);
+  const PST = [{r: 1.35, len: 33}, {r: 1.2, len: 31}, {r: 1.05, len: 29}];
+  const pstages = PST.map(s => { const m = mesh(new THREE.CylinderGeometry(s.r, s.r, s.len, 32), M.body); m.scale.x = 1.7; pcolG.add(m); return m; });
+  const plever = mesh(new THREE.BoxGeometry(.9, 1.6, .4), M.orange); pcolG.add(plever);
+  const pdisp = new THREE.Group(); PRO.add(pdisp);
+  const pdBody = slab(35.6, .7, 22.6, 1.2, M.body, .12); pdBody.rotation.x = Math.PI/2; pdisp.add(pdBody);
+  const pdScr = mesh(new THREE.PlaneGeometry(34.4, 21.4), M.dark, true); pdScr.position.z = .36; pdisp.add(pdScr);
+  const pdImg = mesh(new THREE.PlaneGeometry(33.8, 20.8), M.screen, true); pdImg.position.z = .37; pdisp.add(pdImg);
+  const pshelf = deckM(36, 24); PRO.add(pshelf);
+  const pcar = slab(6, 3, 4, .8, M.body, .2); PRO.add(pcar);
+  function laptop(){ const g = new THREE.Group(); const d = 22.1, w = 31.2, t = 1.55, lid = 21.5;
+    const b = slab(w, t, d, 1.2, M.alu, .2); b.position.set(0, t/2, d/2); g.add(b);
+    const kb = mesh(new THREE.PlaneGeometry(w*.8, d*.36), M.keys, true); kb.rotation.x = -Math.PI/2; kb.position.set(0, t + .02, d*.3); g.add(kb);
+    const lp = new THREE.Group(); lp.position.y = t; lp.rotation.x = -LID_TILT; g.add(lp);
+    const l = mesh(new THREE.BoxGeometry(w, lid, .5), M.alu); l.position.set(0, lid/2, -.25); lp.add(l);
+    const s = mesh(new THREE.PlaneGeometry(w*.94, lid*.9), M.screen, true); s.position.set(0, lid/2 + .3, .01); lp.add(s); return g; }
+  function keyboard(){ const g = new THREE.Group(); const b = slab(28, 1.1, 11.5, .9, M.alu, .15); b.position.y = .55; g.add(b); const k = mesh(new THREE.PlaneGeometry(26.5, 10), M.keys, true); k.rotation.x = -Math.PI/2; k.position.y = 1.12; g.add(k); return g; }
+  function mouse(){ const m = mesh(new THREE.SphereGeometry(1, 24, 16), M.alu); m.scale.set(3, 1.1, 5.4); m.position.y = .7; return m; }
+  let devs = new THREE.Group(); scene.add(devs);
+  let person = new THREE.Group(); scene.add(person);
+  function limb(a, b, r){ const d = new THREE.Vector3().subVectors(b, a), L = d.length(); const m = mesh(new THREE.CylinderGeometry(r, r, L, 16), M.ghost, true); m.position.copy(a).addScaledVector(d, .5); m.quaternion.setFromUnitVectors(V(0, 1, 0), d.normalize()); return m; }
+  function ball(p, r){ const m = mesh(new THREE.SphereGeometry(r, 20, 14), M.ghost, true); m.position.copy(p); return m; }
+  function dispose(g){ g.traverse(o => o.geometry && o.geometry.dispose()); }
+  const st = {model: 'istand', T: 75, H: 175, person: true, t: 0};
+  function build(){
+    const {T, H} = st, f = fit(H, T, st.model);
+    top.position.set(0, T - 1.5, -10); legs.forEach(l => { l.scale.y = T - 3; l.position.y = (T - 3)/2; });
+    IS.position.y = T; PRO.position.y = T; IS.visible = st.model === 'istand'; PRO.visible = st.model === 'pro';
+    st.K = clamp(f.K, 3, 39); st.S = clamp(f.S, 10, 100);
+    scene.remove(devs); dispose(devs); devs = new THREE.Group(); scene.add(devs);
+    if (st.model === 'istand'){
+      const lp = laptop(); lp.position.set(0, T + st.S, -12); devs.add(lp);
+      const kb = keyboard(); kb.position.set(-5, T + st.K, 15.25); devs.add(kb);
+      const ms = mouse(); ms.position.set(15, T + st.K, 15); devs.add(ms);
+    } else {
+      const lp = laptop(); lp.position.set(-3, T + st.K, -5.5); devs.add(lp);
+      const ms = mouse(); ms.position.set(15.5, T + st.K, 6); devs.add(ms);
+    }
+    scene.remove(person); dispose(person); person = new THREE.Group(); scene.add(person);
+    const k = H/175, reach = .196*H;
+    const homeU = st.model === 'istand' ? 15.5 : 3.6, homeY = T + st.K + (st.model === 'istand' ? 2 : 1.5);
+    const elU = homeU + Math.sqrt(Math.max(reach*reach - Math.pow(f.elbow - homeY, 2), 4));
+    const sh = V(0, .818*H + 2.5, elU + 2), hip = V(0, .53*H + 2.5, elU + 3.5);
+    const tor = limb(V(0, hip.y + 4*k, hip.z + 1), V(0, sh.y - 4*k, sh.z + 1), 11.5*k); tor.scale.x = 1.45; person.add(tor);
+    person.add(limb(V(0, sh.y + 1, sh.z), V(0, sh.y + 7*k, sh.z - 1.5*k), 4.5*k));
+    const hd = ball(V(0, f.eye + 1.5*k, sh.z - 3.5*k), 1); hd.scale.set(8.4*k, 12*k, 9.8*k); person.add(hd);
+    const pel = ball(hip, 13*k); pel.scale.set(1.25, .7, .9); person.add(pel);
+    [-1, 1].forEach(s => {
+      const S0 = V(s*.098*H, sh.y - 1.5*k, sh.z), E = V(s*(.098*H + 1.5*k), f.elbow, elU), Hd = V((st.model === 'istand' ? -5 : -3) + s*8.5, homeY + 1.6, homeU + 3);
+      person.add(ball(S0, 5*k), limb(S0, E, 4*k), ball(E, 3.6*k), limb(E, Hd, 3.3*k), ball(Hd, 3.3*k));
+      const Hp = V(s*.055*H, hip.y, hip.z), Kn = V(s*.055*H, .285*H + 2.5, hip.z - 1), An = V(s*.055*H, .039*H + 2.5, hip.z + .5);
+      person.add(limb(Hp, Kn, 6.2*k), ball(Kn, 5.2*k), limb(Kn, An, 4.8*k));
+      const ft = mesh(new THREE.BoxGeometry(9*k, 6*k, .14*H), M.ghost, true); ft.position.set(s*.055*H, 3*k, hip.z - .07*H + 1); person.add(ft);
+    });
+    layout();
+  }
+  function layout(){
+    const t = st.t, S = st.S, K = st.K;
+    const vis = t < .03; devs.visible = vis; person.visible = vis && st.person;
+    if (st.model === 'istand'){
+      const pM = ph(t, .05, .4), pB = ph(t, .3, .55), pMv = ph(t, .45, 1);
+      const base = G.FH, s1 = base + G.ST[0].len, s2n = s1 + G.LOCK, s3n = s2n + G.LOCK, topY = S - 1;
+      const e = Math.max(0, topY - s3n), e2 = Math.min(e, G.ST[1].len - 6 - G.LOCK), e3 = Math.min(e - e2, G.ST[2].len - 6 - G.LOCK);
+      const s2d = s2n + e2, s3d = s2d + G.LOCK + e3, s2 = s2d + (s2n - s2d)*pM, s3 = s3d + (s3n - s3d)*pM;
+      const qL = new THREE.Quaternion().setFromAxisAngle(V(0, 0, 1), -Math.PI/2);
+      masts.forEach(m => {
+        m.stages[0].position.y = base; m.stages[1].position.y = s2 - G.ST[1].len; m.stages[2].position.y = s3 - G.ST[2].len;
+        m.collars[0].position.y = s1; m.collars[1].position.y = s2; m.lever.position.set(m.side*1.2, s1 - 1.2, 0);
+        m.blades.forEach(b => b.rotation.x = -b.userData.dir*(Math.PI/2)*pB);
+        m.g.position.lerpVectors(V(m.side*G.MX, 0, 0), V(-22.1, 2.1, -1 + m.side*7.5), pMv);
+        m.g.quaternion.copy(new THREE.Quaternion()).slerp(qL, pMv);
+      });
+      kdeck.position.lerpVectors(V(0, K, 12), V(0, 1.0, -1), pMv);
+      shelf.position.lerpVectors(V(0, S, -1), V(0, 3.3, -1), pMv); shelf.rotation.x = Math.PI*ph(t, .6, 1);
+      const a = V(0, S - 1, -13), b = V(0, .4, -24), mid = a.clone().add(b).multiplyScalar(.5), d = b.clone().sub(a), L = d.length();
+      const qd = new THREE.Quaternion().setFromUnitVectors(V(0, 1, 0), d.normalize()), qp = new THREE.Quaternion().setFromUnitVectors(V(0, 1, 0), V(1, 0, 0));
+      strut.position.lerpVectors(mid, V(0, 1.8, -1), pMv); strut.quaternion.copy(qd).slerp(qp, pMv); strutT.scale.y = L + (40 - L)*pMv;
+      puck.position.lerpVectors(V(15, K - 1 - 1.2, 18), V(32, 1.2, -1), pMv);
+    } else {
+      const pM = ph(t, .05, .4), pS = ph(t, .3, .6), pMv = ph(t, .5, 1);
+      pbase.position.set(0, .9, -4); pport.position.set(0, 1.0, -16.1);
+      const colTopD = S + 11, colTopP = .8 + 33 + 3.6, colTop = colTopD + (colTopP - colTopD)*pM;
+      const s3 = colTop, s2 = Math.max(1.8 + 33 + 1.8, colTop - (PST[2].len - 6)), s1 = 1.8 + 33;
+      pstages[0].position.y = 1.8 + PST[0].len/2; pstages[1].position.y = Math.min(s2, s3) - PST[1].len/2; pstages[2].position.y = s3 - PST[2].len/2;
+      plever.position.set(0, s1 - 1.5, 1.4);
+      const qL = new THREE.Quaternion().setFromAxisAngle(V(0, 0, 1), -Math.PI/2);
+      pcolG.position.lerpVectors(V(0, 0, -13), V(-18.4, 1.3, -13), pMv); pcolG.quaternion.copy(new THREE.Quaternion()).slerp(qL, pMv);
+      pdisp.position.lerpVectors(V(0, colTop, -11.2), V(0, 5.0, -4), pMv);
+      const qD = new THREE.Quaternion().setFromAxisAngle(V(1, 0, 0), -8*Math.PI/180), qP = new THREE.Quaternion().setFromAxisAngle(V(1, 0, 0), Math.PI/2);
+      pdisp.quaternion.copy(qD).slerp(qP, pMv);
+      pshelf.visible = pS < .99; pshelf.position.lerpVectors(V(0, K, 3), V(0, 1.2, -4), pS);
+      pcar.visible = pS < .99; pcar.position.set(0, (K - 2)*(1 - pS) + pS, -11);
+    }
+    R.shadowMap.needsUpdate = true; frame();
+  }
+  function camHome(){
+    const T = st.T, folded = st.t > .5;
+    const tgt = folded ? V(0, T + 3, -2) : V(0, T + 34, 4), off = folded ? V(64, 56, 84) : V(158, 58, 205);
+    if (cam.aspect < 1.2) off.multiplyScalar(1.45);
+    ctl.target.copy(tgt); cam.position.copy(tgt).add(off); ctl.update();
+  }
+  let raf = 0, on = false, animT = null;
+  function loop(){ raf = 0; ctl.update(); R.render(scene, cam); if (on && (ctl.autoRotate || animT)) raf = requestAnimationFrame(loop); }
+  function frame(){ if (!raf) raf = requestAnimationFrame(loop); }
+  ctl.addEventListener('change', frame);
+  function resize(){ const w = host.clientWidth, h = host.clientHeight; if (!w || !h) return; R.setSize(w, h, false); cam.aspect = w/h; cam.updateProjectionMatrix(); R.shadowMap.needsUpdate = true; frame(); }
+  new ResizeObserver(() => { resize(); camHome(); }).observe(host); resize();
+  function animate(to){
+    const from = st.t, dur = reduce ? 0 : 1800, t0 = performance.now(); let moved = false; animT = true;
+    const step = now => { const k = dur ? Math.min(1, (now - t0)/dur) : 1; st.t = from + (to - from)*k; layout();
+      if (!moved && ((to === 1 && st.t > .5) || (to === 0 && st.t < .5))){ moved = true; camHome(); }
+      if (k < 1) requestAnimationFrame(step); else { animT = null; camHome(); frame(); } };
+    requestAnimationFrame(step); frame();
+  }
+  build(); camHome();
+  return {
+    set(o){ Object.assign(st, o); if ('model' in o) st.t = 0; build(); if ('model' in o || 'T' in o) camHome(); },
+    finish(f){ setFinish(f); R.shadowMap.needsUpdate = true; frame(); },
+    fold(v){ animate(v ? 1 : 0); },
+    active(v){ on = v; if (v){ resize(); frame(); } }
+  };
+}
+function seg(id, cb){ const el = $(id); el.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; el.querySelectorAll('button').forEach(x => x.setAttribute('aria-pressed', String(x === b))); cb(b.dataset.v); }); }
+const fb = $('btnFold');
+const resetFold = () => { fb.setAttribute('aria-pressed', 'false'); fb.textContent = 'Fold'; };
+seg('segModel', v => { resetFold(); V3 && V3.set({model: v}); });
+seg('segFinish', v => V3 && V3.finish(v));
+seg('segTable', v => { resetFold(); V3 && V3.set({T: +v, t: 0}); });
+seg('segPerson', v => V3 && V3.set({person: v === 'on'}));
+$('inH').addEventListener('input', e => { $('outH').textContent = e.target.value + ' cm'; V3 && V3.set({H: +e.target.value}); });
+fb.addEventListener('click', () => { const v = fb.getAttribute('aria-pressed') !== 'true'; fb.setAttribute('aria-pressed', String(v)); fb.textContent = v ? 'Unfold' : 'Fold'; V3 && V3.fold(v); });
+
+const h0 = parseInt((location.hash || '').slice(1), 10);
+go(h0 >= 1 && h0 <= N ? h0 - 1 : 0, true);
+})();
+</script>
+</body>
+</html>
